@@ -102,9 +102,9 @@ The genome sequence identity value between species is calculated based on 1v1 co
 
 The Step8 involves keeping sheep rumen SHE lncRNAs identity value ≥ <font style="color: #A8D8A8;">cutoff1</font> in ruminant group and ≤ <font style="color: #A8D8A8;">cutoff1</font> in outgroup, and keeping sika deer antler SHE lncRNAs identity value ≥ <font style="color: #A3C6FF;">cutoff2</font> in cervidae group and ≤ <font style="color: #A3C6FF;">cutoff2</font> in outgroup. 
 
-    ```
-    python 01.sheep-lncRNA-identity.py
-    ```
+```
+python 01.sheep-lncRNA-identity.py
+```
 
 
 
