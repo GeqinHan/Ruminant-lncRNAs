@@ -1,0 +1,31 @@
+perl spec.pl sheep-tissueType-new tau-generate-input-file.csv tau-generate-output-file.csv
+
+cat lncRNA-transcript-ID.txt|while read line;do grep -F -w "${line}" tau-generate-output-file.csv >> tau-generate-output-file-lncRNAs.csv;done
+
+awk -F '\t' '{if($1>=0.75&&$1!="NA"){print $0}}' tau-generate-output-file-lncRNAs.csv > tau-generate-output-file-lncRNAs-cutoff-0.75.csv
+
+cut -f 6- tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input.txt
+
+cut -f -5 tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input-left.txt
+
+head -n1 ../tau-generate-output-file.csv > SRR-ID-line1
+
+cat SRR-ID-line1-new cal-specific-top2-input.txt > cal-specific-top2-input-new.txt
+
+Rscript cal-specific-top2.R > cal-specific-top2-out.txt
+
+awk '{print $3"\t"$5"\t"$9"\t"$11}' cal-specific-top2-out.txt > cal-specific-top2-out-new.txt
+
+paste -d '\t' cal-specific-top2-input-left.txt cal-specific-top2-out-new.txt > cal-specific-top2-allinfo.txt
+
+######get rumen and headgear specific lncRNAs gtf files######
+
+grep 'SRR8002918\|SRR8002939' cal-specific-top2-allinfo.txt > sheep-horn-specific-high-expression-lncRNAs-top2.txt
+
+grep 'ERR2074151\|ERR2074152\|ERR2074153\|ERR2074154\|ERR2074155\|ERR2074156\|ERR2074115\|ERR2074116\|ERR2074117\|ERR2074118\|ERR2074119\|ERR2074120\|ERR2074079\|ERR2074080\|ERR2074081\|ERR2074082\|ERR2074083\|ERR2074084\|SRR7755272\|SRR7755189\|SRR7755445\|SRR7755457\|SRR7755269\|SRR7755268\|SRR7755375\|SRR7755378\|SRR7755377\|SRR7755380\|SRR7755379\|SRR7755382\|SRR7755381\|SRR7755374\|SRR7755112\|SRR7755108\|SRR7755113\|SRR7755449\|SRR7755311\|ERR2074217\|ERR2074218\|ERR2074219\|ERR2074220\|ERR2074221\|ERR2074222\|ERR2074043\|ERR2074045\|ERR2074046\|ERR2074047\|ERR2074048\|ERR2074289\|ERR2074290\|ERR2074291\|ERR2074292\|ERR2074293\|ERR2074294\|ERR2074445\|ERR2074446\|ERR2074447\|ERR2074448\|ERR2074449\|ERR2074450\|ERR2076506\|ERR2076507\|ERR2076508\|ERR2076509\|ERR2076510\|ERR2076511\|ERR2076512\|ERR2076513\|ERR2076870\|ERR2076871\|ERR2076872\|ERR2076873\|ERR2076874\|ERR2076875\|ERR2076876\|ERR2076877\|ERR2076878\|ERR2076879\|ERR2076880\|ERR2076881\|ERR2076882\|ERR2074601\|ERR2074602\|ERR2074603\|ERR2074604\|ERR2074605\|ERR2074606\|ERR2075973\|ERR2075974\|ERR2075975\|ERR2075976\|ERR2075977\|ERR2075978\|ERR2075979\|ERR2075980\|ERR2075981\|ERR2075982\|ERR2075983\|ERR2075984\|ERR2075985\|ERR2076272\|ERR2076273\|ERR2076274\|ERR2076275\|ERR2076276\|ERR2076277\|ERR2076278\|ERR2076279\|ERR2076280\|ERR2076281\|ERR2076282\|ERR2076283\|ERR2076284\|ERR489204\|ERR489205\|ERR489160\|ERR489161\|ERR489162\|ERR489163\|ERR489164\|ERR489165\|ERR489084\|ERR489085\|ERR2075512\|ERR2075513\|ERR2075514\|ERR2075515\|ERR2075516\|ERR2075517\|ERR2075518\|ERR2075519\|ERR2075520\|ERR2075521\|ERR2074049\|ERR2074050\|ERR2074051\|ERR2074052\|ERR2074053\|ERR2074054\|ERR2075392\|ERR2075393\|ERR2075394\|ERR2075395\|ERR2075396\|ERR2075397\|ERR2075398\|ERR2075399\|ERR2075400\|ERR2075401\|SRR2016819\|SRR2016820\|SRR11823547\|SRR11823546\|SRR10426641\|SRR10426640\|SRR10426650\|SRR11829443\|SRR11823545\|SRR11823544\|SRR11823543\|SRR11823542\|SRR11823541\|SRR11823539\|SRR11829446\|SRR11829445\|SRR11829444\|SRR11823538\|SRR11823537\|SRR11823536\|SRR8399076\|SRR8399079\|SRR8399080\|SRR8399081\|SRR8399082' cal-specific-top2-allinfo.txt > sheep-rumen-specific-high-expression-lncRNAs-top2.txt
+
+for i in horn rumen;do awk -F '\t' '{print $5}' sheep-${i}-specific-high-expression-lncRNAs-top2.txt > sheep-${i}-specific-high-expression-lncRNAs-top2-ID.txt;done
+
+cat sheep-horn-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" sheep-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > sheep-horn-specific-high-expression-lncRNAs-top2.gtf
+
+cat sheep-rumen-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" sheep-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > sheep-rumen-specific-high-expression-lncRNAs-top2.gtf

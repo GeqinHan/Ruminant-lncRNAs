@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for i in all-SRA-ID
+
+do
+
+######for pair-end RNA-seq data######
+fastp -i ${i}-fastq_1.fastq -I ${i}-fastq_2.fastq -o ${i}-fastq_1_out.fastq -O ${i}-fastq_2_out.fastq -M 40 -l 50
+
+######for single-end RNA-seq data######
+fastp -i ${i}-fastq_1.fastq -o ${i}-fastq_1_out.fastq -M 40 -l 50
+
+echo ${i}-done
+
+done

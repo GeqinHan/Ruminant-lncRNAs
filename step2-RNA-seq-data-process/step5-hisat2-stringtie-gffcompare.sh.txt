@@ -1,0 +1,31 @@
+#!/bin/bash
+
+######run hisat2-build######
+
+hisat2-build -p 10 species.fa species
+
+######
+
+for i in all-SRA-ID
+
+do
+
+hisat2 -p 20 -x species -1 ${i}_input_rmrRNA.fastq.1.gz -2 ${i}_input_rmrRNA.fastq.2.gz -S ${i}.sam
+
+samtools view -bS ${i}.sam -o ${i}.bam
+
+samtools sort -o ${i}.sorted ${i}.bam
+
+samtools index ${i}.sorted
+
+stringtie -c 0.001 ${i}.sorted -G species.gff3 -m 200 -a 10 -conservative -g 50 -u -p 4 -o ${i}_out.gtf -A ${i}_genes.list
+
+done
+
+######Organize ${i}_out.gtf files with absolute paths into the mergelist.txt document.######
+
+stringtie --merge -p 12 -m 200 -c 3  mergelist.txt > merge-all-samples.gtf
+
+######
+
+gffcompare -r species.gff3 -o species-gffcompare -i merge-all-samples.gtf

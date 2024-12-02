@@ -1,0 +1,33 @@
+perl spec.pl sikadeer-tissueType-new tau-generate-input-file.csv tau-generate-output-file.csv
+
+cat lncRNA-transcript-ID.txt|while read line;do grep -F -w "${line}" tau-generate-output-file.csv >> tau-generate-output-file-lncRNAs.csv;done
+
+awk -F '\t' '{if($1>=0.75&&$1!="NA"){print $0}}' tau-generate-output-file-lncRNAs.csv > tau-generate-output-file-lncRNAs-cutoff-0.75.csv
+
+cut -f 6- tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input.txt
+
+cut -f -5 tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input-left.txt
+
+head -n1 ../tau-generate-output-file.csv > SRR-ID-line1
+
+cat SRR-ID-line1-new cal-specific-top2-input.txt > cal-specific-top2-input-new.txt
+
+Rscript cal-specific-top2.R > cal-specific-top2-out.txt
+
+awk '{print $3"\t"$5"\t"$9"\t"$11}' cal-specific-top2-out.txt > cal-specific-top2-out-new.txt
+
+paste -d '\t' cal-specific-top2-input-left.txt cal-specific-top2-out-new.txt > cal-specific-top2-allinfo.txt
+
+######get rumen and antler specific lncRNAs gtf files######
+
+grep 'SRR16700536\|SRR16700547\|SRR16700558\|SRR16700492\|SRR16700503\|SRR16700560\|SRR16700571\|SRR16700553\|SRR16700554\|SRR16700555\|SRR16700556\|SRR16700557' cal-specific-top2-allinfo.txt > sikadeer-rumen-specific-high-expression-lncRNAs-top2.txt
+
+grep 'Antler-B-1-HG\|Antler-B-2-HG\|Antler-B-3-HG\|Antler-CA-1-HG\|Antler-CA-2-HG\|Antler-CA-3-HG\|Antler-PC-1-HG\|Antler-PC-2-HG\|Antler-PC-3-HG\|DOPP-after-get-0dac-1\|DOPP-after-get-0dac-2\|DOPP-after-get-0dac-3\|Antler-RM-1-HG\|Antler-RM-2-HG\|Antler-RM-3-HG\|SRR18919844\|SRR18919845\|SRR18919846\|SRR18919847\|SRR18919848\|SRR18919849\|SRR18919850\|SRR18919851\|SRR18919852\|SRR18919853\|SRR18919854\|SRR18919855\|SRR18919856\|SRR18919857\|SRR18919858\|SRR18919859\|SRR18919860\|SRR18919861\|SRR18919862\|SRR18919863\|SRR18919864\|SRR18919865\|SRR18919866\|SRR18919867\|SRR18919868\|SRR18919869\|SRR18919870\|SRR18919871\|SRR18919872\|SRR18919873\|SRR18919874\|SRR18919875\|SRR18919876\|SRR18919877\|SRR18919878\|SRR18919879\|SRR18919880\|SRR18919881\|SRR18919882\|SRR18919883\|SRR18919887\|SRR18919888\|SRR18919889\|SRR18919890\|SRR18919891\|Antler-TZ-1-HG\|Antler-TZ-2-HG\|Antler-TZ-3-HG\|PP_dac0-skin-1-HG
+\|PP_dac2-skin-1-HG\|PP_dac2-skin-2-HG\|PP_dac2-skin-3-HG\|PP_dac5-skin-1-HG\|PP_dac5-skin-2-HG\|PP_dac5-skin-3-HG\|PP_dac10-skin-1-HG\|PP_dac10-skin-2-HG\|PP_dac10-skin-3-HG\|PP_dac0-1\|PP_dac0-2\|PP_dac0_R_3-HG\|PP_dac2-1\|PP_dac2-2\|PP_dac2_R_3-HG\|PP_dac5-1\|PP_dac5-2\|PP_dac5_R_3-HG\|  PP_dac10-1\|PP_dac10-2\|PP_dac10_R_3-HG\|PP_dac0-skin-2-HG\|PP_dac0-skin-3-HG\|Antler-5dbc-skin-down-1\|Antler-5dbc-skin-down-2\|Antler-5dbc-skin-down-3\|Antler-5dbc-down-1\|Antler-5dbc-down-2\|Antler-5dbc-down-3\|Antler-5dbc-skin-up-1\|Antler-5dbc-skin-up-2\|Antler-5dbc-skin-up-3\|Antler-5dbc-up-1\|Antler-5dbc-up-2\|Antler-5dbc-up-3' cal-specific-top2-allinfo.txt > sikadeer-antler-specific-high-expression-lncRNAs-top2.txt
+
+for i in rumen antler;do awk -F '\t' '{print $5}' sikadeer-${i}-specific-high-expression-lncRNAs-top2.txt > sikadeer-${i}-specific-high-expression-lncRNAs-top2-ID.txt;done
+
+cat sikadeer-rumen-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" sikadeer-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > sikadeer-rumen-specific-high-expression-lncRNAs-top2.gtf
+
+cat sikadeer-antler-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" sikadeer-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > sikadeer-antler-specific-high-expression-lncRNAs-top2.gtf
+

@@ -1,0 +1,42 @@
+gffread species-gffcompare.annotated.ixou.exon2.transcript.gtf -g species-genome.fa -w species-gffcompare.annotated.ixou.exon2.transcript.fa
+
+######CPC2: a fast and accurate coding potential calculator based on sequence intrinsic features######
+conda activate cpc2_py3_env
+
+CPC2.py -i species-gffcompare.annotated.ixou.exon2.transcript.fa -o species-gffcompare.annotated.ixou.exon2.transcript.CPC.out
+
+######CNCI: Coding-Non-Coding Index######
+
+conda activate cnci2_py2_env
+
+CNCI.py -f species-gffcompare.annotated.ixou.exon2.transcript.fa -o CNCI-species -p 8 -m ve
+
+######Pfam######
+transeq -sequence species-gffcompare.annotated.ixou.exon2.transcript.fa -outseq species-gffcompare.annotated.ixou.exon2.transcript.protein.fa
+
+bash
+
+conda activate pfam_scan_env
+
+pfam_scan.pl -fasta species-gffcompare.annotated.ixou.exon2.transcript.protein.fa -dir /home/hg/software/miniconda3/envs/pfam_scan_env/bin/ -out species-gffcompare.annotated.ixou.exon2.transcript.protein.pfam_scan.fa
+
+grep 'MSTRG' species-gffcompare.annotated.ixou.exon2.transcript.protein.pfam_scan.fa | awk -F ' ' '{print $1}' > Pfam_species_coding.ID
+
+grep '>' species-gffcompare.annotated.ixou.exon2.transcript.protein.fa | awk -F '>' '{print $2}' | awk -F ' ' '{print $1}' > Pfam_species_all.ID
+
+sort Pfam_species_all.ID Pfam_species_coding.ID Pfam_species_coding.ID | uniq -u > species_Pfam_noncoding.txt
+
+sed -i 's/_1//g' species_Pfam_noncoding.txt
+
+######Intersected the candidate lncRNAs predicted by three conventional lncRNA predicted tools: CNCI, CPC, and Pfam######
+
+Result files: 
+
+Cattle-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf
+
+Goat-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf
+
+Sheep-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf
+
+Sikadeer-gffcompare.annotated.ixou.exon2.transcript-lncRNA.gtf
+

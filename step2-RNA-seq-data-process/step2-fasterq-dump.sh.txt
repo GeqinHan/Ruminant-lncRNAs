@@ -1,0 +1,11 @@
+#!/bin/bash
+
+for i in all-SRA-ID
+
+do
+
+fasterq-dump -e 20 -p -o ${i}-fastq ${i}
+
+echo ${i}-done
+
+done

@@ -1,0 +1,31 @@
+perl spec.pl goat-tissueType-new tau-generate-input-file.csv tau-generate-output-file.csv
+
+cat lncRNA-transcript-ID.txt|while read line;do grep -F -w "${line}" tau-generate-output-file.csv >> tau-generate-output-file-lncRNAs.csv;done
+
+awk -F '\t' '{if($1>=0.75&&$1!="NA"){print $0}}' tau-generate-output-file-lncRNAs.csv > tau-generate-output-file-lncRNAs-cutoff-0.75.csv
+
+cut -f 6- tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input.txt
+
+cut -f -5 tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input-left.txt
+
+head -n1 ../tau-generate-output-file.csv > SRR-ID-line1
+
+cat SRR-ID-line1-new cal-specific-top2-input.txt > cal-specific-top2-input-new.txt
+
+Rscript cal-specific-top2.R > cal-specific-top2-out.txt
+
+awk '{print $3"\t"$5"\t"$9"\t"$11}' cal-specific-top2-out.txt > cal-specific-top2-out-new.txt
+
+paste -d '\t' cal-specific-top2-input-left.txt cal-specific-top2-out-new.txt > cal-specific-top2-allinfo.txt
+
+######get rumen and headgear specific lncRNAs gtf files######
+
+grep 'SRR8002976\|SRR8002975\|SRR8002968\|SRR7755358\|SRR7755411\|SRR7755284\|SRR7755484\|SRR7755487\|SRR7755091\|SRR7755092' cal-specific-top2-allinfo.txt > sy-horn-specific-high-expression-lncRNAs-top2.txt
+
+grep  'SRR7755279\|SRR7755356\|SRR7755278\|SRR23697776\|SRR23697775\|SRR23697772\|SRR23697771\|SRR16646294\|SRR16646293\|SRR16646292\|SRR16646291\|SRR16646271\|SRR16646270\|SRR16646268\|SRR16646267' cal-specific-top2-allinfo.txt > sy-rumen-specific-high-expression-lncRNAs-top2.txt
+
+for i in horn rumen;do awk -F '\t' '{print $5}' goat-${i}-specific-high-expression-lncRNAs-top2.txt > goat-${i}-specific-high-expression-lncRNAs-top2-ID.txt;done
+
+cat goat-horn-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" goat-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > goat-horn-specific-high-expression-lncRNAs-top2.gtf
+
+cat goat-rumen-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" goat-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > goat-rumen-specific-high-expression-lncRNAs-top2.gtf

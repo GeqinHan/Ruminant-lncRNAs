@@ -1,0 +1,26 @@
+# Step 4-1
+""
+This Python script is to calculate the identity value for the lncRNAs of reference species.
+
+Parameters and directories to be specified:
+
+- template_inputdir_maflist: The directory that contains the .maflist files, which are the output from a previous step2.
+- template_inputfile_species_list: List the species for which you want to calculate the identity value (01.input-species-list).
+- template_inputfile_gtf: The *.gtf file for sheep lncRNA (01.input-sheep-rumen-specific-high-expression-lncRNA.gtf).
+- output_identity_file: The file where the identity values will be stored (01.output-identity.csv).
+- output_basecount_file: The file where the number of matching nucleobases will be stored (01.output-number_of_matching_nucleobases.csv).
+
+Usage:
+1. Ensure that the required directories and files are correctly specified in the script.
+2. Run the script to perform the identity value calculations for the specified species.
+3. The results will be saved as *.csv files in the specified output directory.
+
+Requirements:
+- Python 3.
+- Any necessary Python libraries (e.g., re, csv, concurrent.futures) should be installed.
+- Access to the specified directories with read/write permissions.
+""
+
+
+
+python 01.sheep-lncRNA-identity.py

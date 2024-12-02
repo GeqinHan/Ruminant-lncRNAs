@@ -1,0 +1,16 @@
+#!/bin/bash
+
+for i in all-SRA-ID
+
+do
+
+######for pair-end RNA-seq data######
+bowtie2 -x species-rRNA-ID --un-conc-gz  ${i}_input_rmrRNA.fastq.gz -1 ${i}-fastq_1_out.fastq -2 ${i}-fastq_2_out.fastq -p 8 -S ${i}_rRNA.sam
+######for single-end RNA-seq data######
+bowtie2 -x species-rRNA-ID --un-gz ${i}_input_rmrRNA.fastq.gz -U ${i}-fastq_1_out.fastq -p 8 -S ${i}_rRNA.sam
+
+rm ${i}_rRNA.sam
+
+echo ${i}-done
+
+done

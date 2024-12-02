@@ -1,0 +1,31 @@
+perl spec.pl cattle-tissueType-new tau-generate-input-file.csv tau-generate-output-file.csv
+
+cat lncRNA-transcript-ID.txt|while read line;do grep -F -w "${line}" tau-generate-output-file.csv >> tau-generate-output-file-lncRNAs.csv;done
+
+awk -F '\t' '{if($1>=0.75&&$1!="NA"){print $0}}' tau-generate-output-file-lncRNAs.csv > tau-generate-output-file-lncRNAs-cutoff-0.75.csv
+
+cut -f 6- tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input.txt
+
+cut -f -5 tau-generate-output-file-lncRNAs-cutoff-0.75.csv > cal-specific-top2-input-left.txt
+
+head -n1 ../tau-generate-output-file.csv > SRR-ID-line1
+
+cat SRR-ID-line1-new cal-specific-top2-input.txt > cal-specific-top2-input-new.txt
+
+Rscript cal-specific-top2.R > cal-specific-top2-out.txt
+
+awk '{print $3"\t"$5"\t"$9"\t"$11}' cal-specific-top2-out.txt > cal-specific-top2-out-new.txt
+
+paste -d '\t' cal-specific-top2-input-left.txt cal-specific-top2-out-new.txt > cal-specific-top2-allinfo.txt
+
+######get rumen and headgear specific lncRNAs gtf files######
+
+grep 'SRR15291899\|SRR15291900' cal-specific-top2-allinfo.txt > cattle-horn-specific-high-expression-lncRNAs-top2.txt
+
+grep 'SRR2777522\|SRR2777521\|SRR2777520\|SRR2777527\|SRR2777526\|SRR2777525\|SRR2777532\|SRR2777530\|SRR2777529\|SRR2777528\|SRR2777536\|SRR2777535\|SRR2777534\|SRR2777533\|SRR15291905\|SRR5363140\|SRR15838010\|SRR15838011\|SRR15838012\|SRR15838013\|SRR15838014\|SRR15838015\|SRR15838016\|SRR15838017\|SRR15838018\|SRR15838019\|SRR15838020\|SRR15838021\|SRR15838022\|SRR15838023\|SRR15838024\|SRR15838025\|SRR19534940\|SRR19534941\|SRR19534942\|SRR19534943\|SRR19534944\|SRR19534945\|SRR19534946\|SRR19534947\|SRR19534948\|SRR16005343\|SRR16005344\|SRR16005345\|SRR16005346\|SRR16005347' cal-specific-top2-allinfo.txt > cattle-rumen-specific-high-expression-lncRNAs-top2.txt
+
+for i in horn rumen;do awk -F '\t' '{print $5}' cattle-${i}-specific-high-expression-lncRNAs-top2.txt > cattle-${i}-specific-high-expression-lncRNAs-top2-ID.txt;done
+
+cat cattle-horn-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" cattle-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > cattle-horn-specific-high-expression-lncRNAs-top2.gtf
+
+cat cattle-rumen-specific-high-expression-lncRNAs-top2-ID.txt|while read line;do grep -F -w "${line}" cattle-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf;done > cattle-rumen-specific-high-expression-lncRNAs-top2.gtf

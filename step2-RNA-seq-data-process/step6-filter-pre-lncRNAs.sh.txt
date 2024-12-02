@@ -1,0 +1,7 @@
+#!/bin/bash
+
+grep -E 'class_code "i"|class_code "x"|class_code "o"|class_code "u"' species-gffcompare.annotated.gtf |awk -F '\t' '{print $9}'|awk -F ';' '{print $1}' > species-gffcompare.annotated.ixou.transcript.ID
+
+python  lncRNA-filter-ixou-step1.py
+
+python lncRNA-filter-2exons-step2.py
