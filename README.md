@@ -46,7 +46,7 @@ Rumen- and horn-specific highly expressed lncRNAs were screened using tau value 
 
 ### 5️⃣ Step 5. Genome alignment.
 A multi-species genome alignment of 14 Ungulate species using sheep as the reference genome.  
-14 Species were listed in file [step5-genome-alignment/03.input-specieslist](https://github.com/hamgle/HomLncFinder-Ruminant/step5-genome-alignment/03.input-specieslist)
+14 Species were listed in file [step5-genome-alignment/03.input-specieslist](https://github.com/GeqinHan/HomLncFinder-Ruminant/tree/main/step5-genome-alignment/03.input-specieslist)
 1. Get *.hal files of genome alignment between 14 species by **Cactus**.
     ```
     01.whole-genome-alignment
@@ -102,9 +102,9 @@ The genome sequence identity value between species is calculated based on 1v1 co
 
 The Step8 involves keeping sheep rumen SHE lncRNAs identity value ≥ <font style="color: #A8D8A8;">cutoff1</font> in ruminant group and ≤ <font style="color: #A8D8A8;">cutoff1</font> in outgroup, and keeping sika deer antler SHE lncRNAs identity value ≥ <font style="color: #A3C6FF;">cutoff2</font> in cervidae group and ≤ <font style="color: #A3C6FF;">cutoff2</font> in outgroup. 
 
-    ```
-    python 01.sheep-lncRNA-identity.py
-    ```
+```
+python 01.sheep-lncRNA-identity.py
+```
 
 
 
