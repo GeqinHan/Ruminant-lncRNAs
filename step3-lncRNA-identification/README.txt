@@ -1,1 +1,0 @@
-Intersected the candidate lncRNAs predicted by three conventional lncRNA predicted tools: CNCI, CPC, and Pfam.

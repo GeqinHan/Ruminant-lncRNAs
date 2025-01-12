@@ -1,0 +1,19 @@
+Cattle genome and annotation files were download from Ensembl database :
+Bos_taurus.ARS-UCD1.2.dna_sm.toplevel.fa
+Bos_taurus.ARS-UCD1.2.110.gff3
+
+
+Goat genome and annotation files were download from Ensembl database :
+Capra_hircus.ARS1.dna_sm.toplevel.fa
+Capra_hircus.ARS1.110.gff3
+
+
+Sheep genome and annotation files were download from Ensembl database :
+Ovis_aries_rambouillet.Oar_rambouillet_v1.0.dna_sm.toplevel.fa
+Ovis_aries_rambouillet.Oar_rambouillet_v1.0.110.gff3
+
+
+Sikadeer genome and annotation files were download from NCBI database :
+GCA_038088365.1_NPU_CNip_2_genomic.fna
+GCA_038088365.1_NPU_CNip_2_genomic.gtf
+

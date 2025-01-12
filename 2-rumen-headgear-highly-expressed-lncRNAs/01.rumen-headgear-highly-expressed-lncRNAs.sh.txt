@@ -1,0 +1,8 @@
+###The input and output files are in each direcroty###
+
+perl spec.pl tau-new-input tau-generate-input-file-v3-out-lncRNA.csv 
+tau-generate-output-file-v3-out-lncRNA.csv
+
+python tissue-specific-maximum-cal.py | grep "Rumen" > species-rumen-specific-lncRNAs
+
+python tissue-specific-maximum-cal.py | grep "Headgear" > species-headgear-specific-lncRNAs

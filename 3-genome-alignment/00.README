@@ -1,0 +1,16 @@
+#Step 01
+#We used Cactus to get *.hal files of genome alignment between sheep or sika deer and other 13 species.
+
+01.whole-genome-alignment.sh
+
+
+#Step 02
+#We showed how to extract the desired *.maf from *.hal using chromosome 1 as an example, and the same procedure applies to other chromosomes. The input file is your *.hal file, and the output file will be the corresponding *.maf for the specified chromosome.
+
+bash 02.hal2maf.sh
+
+
+#Step 03
+#We showed how to convert *.maf into the *.maflist using chromosome 1 as an example, and the same procedure applies to other chromosomes. The input files are 03.input-changemaf2list.py, 02.output-sheep-ref-chr1.maf, 03.input-species-list and the output file is corresponding 03.output-sheep-ref-chr*.maf.list for the specified chromosome.
+
+bash 03.maf2maflist.sh
