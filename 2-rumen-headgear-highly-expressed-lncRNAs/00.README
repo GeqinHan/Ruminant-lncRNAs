@@ -1,0 +1,12 @@
+#Step1
+#Calculate tau-index value for each lncRNA transcript.The corresponding input and output files were stored in folders named after each species.
+
+perl 01.spec.pl tau-new-input tau-generate-input-file-v3-out-lncRNA.csv 
+tau-generate-output-file-v3-out-lncRNA.csv
+
+#Step2
+#Screening lncRNA transcripts specifically expressed in the novel organs rumen and headgear.The results were stored in folders named after the corresponding species.
+
+python 02.tissue-specific-maximum-cal.py | grep "Rumen" > species-rumen-specific-lncRNAs
+
+python 02.tissue-specific-maximum-cal.py | grep "Headgear" > species-headgear-specific-lncRNAs

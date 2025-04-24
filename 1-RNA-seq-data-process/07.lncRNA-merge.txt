@@ -1,0 +1,3 @@
+###Merge lncRNAs identified from this study and other databases. The input.txt file contains the absolute paths to files storing lncRNAs derived from other databases. The final lncRNA results are stored in the directory  ~/result-data/ruminant-lncRNA-data/.###
+
+cuffmerge  -p 30  -g Sheep-gffcompare.annotated.ixou.exon2.transcript-lncRNAs.gtf -o sheep_cuffmerge_out  input.txt

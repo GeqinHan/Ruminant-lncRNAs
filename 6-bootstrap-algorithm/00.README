@@ -1,0 +1,15 @@
+###
+
+This Python script calculates sequence identity between sheep protein-coding genes (PCGs) and multiple other species, then computes bootstrap confidence intervals (CI) for these identity values. 
+
+Usage: python 01.sheep_mRNAs_sequence_identity_bootstrap.py input_file [options]
+
+Example: python 01.sheep_mRNAs_sequence_identity_bootstrap.py ~/5-mRNAs-identity-value/01.output_sequence_identity.csv -o 01.output_sheep_mRNAs_sequence_identity_bootstrap_CI.json -n 10000 -c 95 -s 12345
+
+Directories and files to be specified:
+- input_file: *.csv containing sequence identity for PCGs compared to other species from folder 5-mRNAs-identity-value (~/5-mRNAs-identity-value/01.output_sequence_identity.csv).
+- options:
+   -o/--output: *.json file storing bootstrap-calculated CI for PCGs sequence identity values (01.output_sheep_mRNAs_sequence_identity_bootstrap_CI.json).
+   -n/--n_bootstrap: Number of bootstrap iterations 
+   -c/--confidence intervals: Confidence interval percentage
+   -s/--seed: Random seed for reproducibility

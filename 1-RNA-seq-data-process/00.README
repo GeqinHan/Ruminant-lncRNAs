@@ -1,0 +1,27 @@
+#Step1
+#Acquisition of genome assemblies and annotation files for four ruminant species.
+
+01.genome-and-annotation-data-preparation
+
+
+#Step2 and step3
+#Transcriptome data quality control and transcript assembly.
+
+02.fasterq-dump-fastp-bowtie2.sh
+
+03.hisat2-stringtie-gffcompare.sh
+
+
+#Step4, step5 and step6
+#The lncRNA repertoires identified in the four ruminant species in this study.
+
+04.lncRNA-filter-2exons.py
+
+05.lncRNA-filter-ixou.py
+
+06.lncRNA-identification-tools-CPC-CNCI-Pfam
+
+#Step7
+#Merging lncRNAs identified in this study with those from other databases.
+
+07.lncRNA-merge

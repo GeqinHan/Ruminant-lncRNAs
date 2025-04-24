@@ -1,0 +1,12 @@
+###
+
+This Python script calculates sequence identity for lncRNAs in the reference species (sheep) by comparing them against multiple other species based on whole-genome alignment data.
+
+Usage:python 01.sheep_lncRNAs_identity.py input.gtf input_maflist_dir output_dir
+
+Example:python 01.sheep_lncRNAs_identity.py 01.input_sheep_expressed_lncRNAs.gtf ~/3-genome-alignment/ ~/4-lncRNAs-identity-value/
+
+Directories and files to be specified:
+- input.gtf: The *.gtf file of sheep lncRNA (01.input_sheep_rumen_lncRNAs.gtf).
+- input_maflist_dir: The directory that contains the *.maflist files, which are the output from the previous step ~/3-genome-alignment/03.output-sheep-ref-chr*.maf.list.
+- output_dir: The directory that will contain *.csv files: 01.output_sequence_identity.csv (sequence identity) and 01.output_number_of_matching_nucleobases.csv (counts of matching nucleobases).

@@ -1,0 +1,13 @@
+###
+
+This Python script calculates sequence identity values for protein-coding genes(PCGs) in the reference species (sheep) by comparing them against multiple other species based on whole-genome alignment data.
+
+Usage:python 01.sheep_mRNAs_identity.py input.gff3 input_maflist_dir output_dir
+
+Example:python 01.sheep_mRNAs_identity.py 01.input_sheep_mRNAs.gff3 ~/3-genome-alignment/ ~/5-mRNAs-identity-value/
+
+Directories and files to be specified:
+- input.gff3: The *.gff3 file for sheep lncRNA (01.input_sheep_mRNAs.gff3).
+- input_maflist_dir: The directory that contains the *.maflist files, which are the output from the previous step ~/3-genome-alignment/03.output-sheep-ref-chr*.maf.list.
+- output_dir: The directory that will contain *.csv files: 01.output_sequence_identity.csv (sequence identity) and 01.output_number_of_matching_nucleobases.csv (counts of matching nucleobases).
+
