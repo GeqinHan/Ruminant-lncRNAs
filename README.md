@@ -10,7 +10,6 @@ If this pipeline or files are helpful for your research please cite the followin
 
 Ensure that the following dependencies and tools are installed to run the pipeline:
 - python 3.8
-- cactus
 - sra-tools
 - hisat2
 - samtools
