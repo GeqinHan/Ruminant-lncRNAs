@@ -1,14 +1,8 @@
 
-This is a pipeline to identify lineage specific lncRNAs through combination of genome alignment and bootstrap algorithm.
+This repository provides the lncRNA identification pipeline and associated lncRNA data for representative ruminant species.
 
 If this pipeline or files are helpful for your research please cite the following publication:
 "Systematic identification of lncRNAs in ruminants and their important roles in rumen development".
-
----
-
-
-## 🐑 Example 
-Here, we use sheep as the reference species to show how to use this pipeline to identify lineage specific lncRNAs.
 
 ---
 
@@ -50,38 +44,7 @@ LncRNAs with high expression in the rumen and horn/antler were identified using 
 ```
 
 
-### 3️⃣ Step 3. Genome alignment.
-A multi-species genome alignment was performed across 14 ungulate species, using the sheep (or sika deer) genome as the reference. 
 
-```
-# 3-genome-alignment
-```
-
-
-### 4️⃣ Step 4. Calculate lncRNAs sequence identity.
-Calculate sequence identity for lncRNAs in the reference species (sheep or sika deer) by comparing them against multiple other species based on genome alignment data.
-
-```
-# 4-lncRNAs-sequence-identity
-```
-
-
-### 5️⃣ Step 5.Calculate mRNAs sequence identity.
-
-Calculate sequence identity for mRNAs in the reference species (sheep or sika deer) by comparing them against multiple other species based on genome alignment data.
-
-```
-# 5-mRNAs-sequence-identity
-```
-
- 
-### 6️⃣ Step 6. Calculate lncRNA identity value.
-
-Calculate sequence identity between sheep mRNAs and multiple other species, and compute bootstrap confidence intervals (CI) for these identity values. 
-
-```
-# 6-bootstrap-algorithm
-```
 
 
 
