@@ -2,7 +2,7 @@
 This repository provides the lncRNA identification pipeline and associated lncRNA data for representative ruminant species.
 
 If this pipeline or files are helpful for your research please cite the following publication:
-"Systematic identification of lncRNAs in ruminants and their important roles in rumen development".
+"LncRNA identification and functional analysis in four ruminants with focus on rumen development".
 
 ---
 
@@ -36,7 +36,7 @@ Taking the intersection of lncRNAs predicted by CPC, CPAT and CNCI.
  
 ### 2️⃣ Step 2. Rumen and headgear highly expressed lncRNAs.
 
-LncRNAs with high expression in the rumen and horn/antler were identified using a tau value ≥ 0.8 and an fpkm ≥ 1 as cutoff thresholds.
+LncRNAs with high expression in the rumen and horn/antler were identified using a tau value ≥ 0.8 and an tpm ≥ 1 as cutoff thresholds.
 
 ```
 # 2-rumen-headgear-highly-expressed-lncRNAs

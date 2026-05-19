@@ -13,7 +13,7 @@ tissue_columns = df.columns[5:]
 results = filtered_df.apply(
     lambda row: {
         "name": row["name"],
-        "max_fpkm": row[tissue_columns].astype(float).max(),
+        "max_tpm": row[tissue_columns].astype(float).max(),
         "tissue": tissue_columns[row[tissue_columns].astype(float).argmax()],
     },
     axis=1,
@@ -21,5 +21,5 @@ results = filtered_df.apply(
 
 print("Results:")
 for result in results:
-    print(f"Transcript: {result['name']}, Max FPKM: {result['max_fpkm']}, Tissue: {result['tissue']}")
+    print(f"Transcript: {result['name']}, Max TPM: {result['max_tpm']}, Tissue: {result['tissue']}")
 
